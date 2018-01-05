@@ -10,6 +10,7 @@ import { MessageService } from './message.service';
 
 @Injectable()
 export class HeroService {
+  private heroesUrl = 'api/heroes';
 
   constructor(private http: HttpClient, private messageService: MessageService) { }
 
@@ -19,7 +20,7 @@ export class HeroService {
 
   getHeroes(): Observable<Hero[]> {
     this.log('fetched heroes');
-    return of(HEROES);
+    return this.http.get<Hero[]>(this.heroesUrl);
   }
 
   getHero(id: number): Observable<Hero> {
